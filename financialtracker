@@ -1,26 +1,16 @@
+# The "potentially problematic patterns" are just false positives from my regex matching normal HTML.
+# Let me create a cleaner version of the HTML and test it more thoroughly.
+# I'll also simplify some parts that might cause issues.
+
 html_code = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Tracker Pro — Master Your Budget & Savings</title>
+    <title>Financial Tracker Pro - Master Your Budget and Savings</title>
     <meta name="description" content="Financial Tracker Pro is a structured Excel workbook with Budget Sheet, Transactions Sheet, and Dashboard KPI. Take control of your money today.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #C41E3A;
-            --primary-dark: #A01729;
-            --primary-light: #FFE4E8;
-            --accent: #1A1A2E;
-            --text: #2D2D2D;
-            --text-light: #6B7280;
-            --bg: #FFFFFF;
-            --bg-soft: #F8F9FA;
-            --border: #E5E7EB;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -29,9 +19,9 @@ html_code = '''<!DOCTYPE html>
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text);
+            color: #2D2D2D;
             line-height: 1.6;
-            background: var(--bg);
+            background: #FFFFFF;
         }
 
         /* Navigation */
@@ -42,7 +32,7 @@ html_code = '''<!DOCTYPE html>
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #E5E7EB;
         }
 
         .nav-container {
@@ -57,7 +47,7 @@ html_code = '''<!DOCTYPE html>
         .logo {
             font-weight: 800;
             font-size: 1.25rem;
-            color: var(--primary);
+            color: #C41E3A;
             text-decoration: none;
         }
 
@@ -69,18 +59,18 @@ html_code = '''<!DOCTYPE html>
 
         .nav-links a {
             text-decoration: none;
-            color: var(--text);
+            color: #2D2D2D;
             font-weight: 500;
             font-size: 0.9rem;
             transition: color 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: #C41E3A;
         }
 
         .nav-cta {
-            background: var(--primary);
+            background: #C41E3A;
             color: white;
             padding: 0.6rem 1.2rem;
             border-radius: 8px;
@@ -91,7 +81,7 @@ html_code = '''<!DOCTYPE html>
         }
 
         .nav-cta:hover {
-            background: var(--primary-dark);
+            background: #A01729;
             transform: translateY(-1px);
         }
 
@@ -112,16 +102,16 @@ html_code = '''<!DOCTYPE html>
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            color: var(--accent);
+            color: #1A1A2E;
         }
 
         .hero-content h1 span {
-            color: var(--primary);
+            color: #C41E3A;
         }
 
         .hero-subtitle {
             font-size: 1.25rem;
-            color: var(--text-light);
+            color: #6B7280;
             margin-bottom: 2rem;
             line-height: 1.7;
         }
@@ -138,16 +128,11 @@ html_code = '''<!DOCTYPE html>
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
-            background: var(--primary-light);
+            background: #FFE4E8;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 500;
-            color: var(--primary-dark);
-        }
-
-        .badge svg {
-            width: 16px;
-            height: 16px;
+            color: #A01729;
         }
 
         .hero-cta {
@@ -158,7 +143,7 @@ html_code = '''<!DOCTYPE html>
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: #C41E3A;
             color: white;
             padding: 1rem 2rem;
             border-radius: 12px;
@@ -173,7 +158,7 @@ html_code = '''<!DOCTYPE html>
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: #A01729;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(196, 30, 58, 0.5);
         }
@@ -181,13 +166,13 @@ html_code = '''<!DOCTYPE html>
         .price-tag {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--accent);
+            color: #1A1A2E;
         }
 
         .price-tag span {
             font-size: 0.9rem;
             font-weight: 400;
-            color: var(--text-light);
+            color: #6B7280;
             text-decoration: line-through;
             margin-left: 0.5rem;
         }
@@ -199,8 +184,8 @@ html_code = '''<!DOCTYPE html>
         .hero-image img {
             width: 100%;
             border-radius: 16px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
         }
 
         .floating-card {
@@ -208,7 +193,7 @@ html_code = '''<!DOCTYPE html>
             background: white;
             padding: 1rem 1.5rem;
             border-radius: 12px;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             font-size: 0.85rem;
             font-weight: 600;
         }
@@ -216,18 +201,18 @@ html_code = '''<!DOCTYPE html>
         .floating-card.savings {
             top: -20px;
             right: -20px;
-            color: var(--primary);
+            color: #C41E3A;
         }
 
         .floating-card.users {
             bottom: 20px;
             left: -30px;
-            color: var(--accent);
+            color: #1A1A2E;
         }
 
         /* Problem Section */
         .problem {
-            background: var(--bg-soft);
+            background: #F8F9FA;
             padding: 5rem 2rem;
         }
 
@@ -244,13 +229,13 @@ html_code = '''<!DOCTYPE html>
         .section-header h2 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--accent);
+            color: #1A1A2E;
             margin-bottom: 1rem;
         }
 
         .section-header p {
             font-size: 1.1rem;
-            color: var(--text-light);
+            color: #6B7280;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -266,19 +251,19 @@ html_code = '''<!DOCTYPE html>
             padding: 2rem;
             border-radius: 16px;
             text-align: center;
-            border: 1px solid var(--border);
+            border: 1px solid #E5E7EB;
             transition: all 0.3s;
         }
 
         .problem-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .problem-icon {
             width: 60px;
             height: 60px;
-            background: var(--primary-light);
+            background: #FFE4E8;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -290,12 +275,12 @@ html_code = '''<!DOCTYPE html>
         .problem-card h3 {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
-            color: var(--accent);
+            color: #1A1A2E;
         }
 
         .problem-card p {
             font-size: 0.9rem;
-            color: var(--text-light);
+            color: #6B7280;
         }
 
         /* Solution / Features */
@@ -313,7 +298,7 @@ html_code = '''<!DOCTYPE html>
             background: white;
             padding: 2.5rem;
             border-radius: 16px;
-            border: 2px solid var(--border);
+            border: 2px solid #E5E7EB;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -326,7 +311,7 @@ html_code = '''<!DOCTYPE html>
             left: 0;
             width: 100%;
             height: 4px;
-            background: var(--primary);
+            background: #C41E3A;
             transform: scaleX(0);
             transition: transform 0.3s;
         }
@@ -336,15 +321,15 @@ html_code = '''<!DOCTYPE html>
         }
 
         .feature-card:hover {
-            border-color: var(--primary);
+            border-color: #C41E3A;
             transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .feature-number {
             font-size: 3rem;
             font-weight: 800;
-            color: var(--primary-light);
+            color: #FFE4E8;
             line-height: 1;
             margin-bottom: 1rem;
         }
@@ -352,11 +337,11 @@ html_code = '''<!DOCTYPE html>
         .feature-card h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--accent);
+            color: #1A1A2E;
         }
 
         .feature-card p {
-            color: var(--text-light);
+            color: #6B7280;
             font-size: 0.95rem;
             line-height: 1.7;
         }
@@ -372,18 +357,18 @@ html_code = '''<!DOCTYPE html>
             gap: 0.5rem;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
-            color: var(--text);
+            color: #2D2D2D;
         }
 
         .feature-list li::before {
             content: '✓';
-            color: var(--primary);
+            color: #C41E3A;
             font-weight: 700;
         }
 
         /* Screenshot Showcase */
         .showcase {
-            background: var(--accent);
+            background: #1A1A2E;
             padding: 5rem 2rem;
             color: white;
         }
@@ -437,7 +422,7 @@ html_code = '''<!DOCTYPE html>
         /* Testimonials */
         .testimonials {
             padding: 5rem 2rem;
-            background: var(--bg-soft);
+            background: #F8F9FA;
         }
 
         .testimonials-grid {
@@ -452,7 +437,7 @@ html_code = '''<!DOCTYPE html>
             background: white;
             padding: 2rem;
             border-radius: 16px;
-            border: 1px solid var(--border);
+            border: 1px solid #E5E7EB;
         }
 
         .stars {
@@ -465,7 +450,7 @@ html_code = '''<!DOCTYPE html>
             font-size: 1rem;
             line-height: 1.7;
             margin-bottom: 1.5rem;
-            color: var(--text);
+            color: #2D2D2D;
         }
 
         .testimonial-author {
@@ -478,22 +463,22 @@ html_code = '''<!DOCTYPE html>
             width: 48px;
             height: 48px;
             border-radius: 50%;
-            background: var(--primary-light);
+            background: #FFE4E8;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            color: var(--primary);
+            color: #C41E3A;
         }
 
         .author-info h4 {
             font-size: 0.95rem;
-            color: var(--accent);
+            color: #1A1A2E;
         }
 
         .author-info p {
             font-size: 0.85rem;
-            color: var(--text-light);
+            color: #6B7280;
         }
 
         /* FAQ */
@@ -507,14 +492,14 @@ html_code = '''<!DOCTYPE html>
         }
 
         .faq-item {
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #E5E7EB;
             padding: 1.5rem 0;
         }
 
         .faq-question {
             font-size: 1.1rem;
             font-weight: 600;
-            color: var(--accent);
+            color: #1A1A2E;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -523,7 +508,7 @@ html_code = '''<!DOCTYPE html>
 
         .faq-answer {
             margin-top: 1rem;
-            color: var(--text-light);
+            color: #6B7280;
             line-height: 1.7;
             display: none;
         }
@@ -534,7 +519,7 @@ html_code = '''<!DOCTYPE html>
 
         .faq-toggle {
             font-size: 1.5rem;
-            color: var(--primary);
+            color: #C41E3A;
             transition: transform 0.3s;
         }
 
@@ -544,7 +529,7 @@ html_code = '''<!DOCTYPE html>
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #C41E3A 0%, #A01729 100%);
             padding: 5rem 2rem;
             text-align: center;
             color: white;
@@ -567,7 +552,7 @@ html_code = '''<!DOCTYPE html>
 
         .btn-white {
             background: white;
-            color: var(--primary);
+            color: #C41E3A;
             padding: 1rem 2.5rem;
             border-radius: 12px;
             text-decoration: none;
@@ -593,7 +578,7 @@ html_code = '''<!DOCTYPE html>
 
         /* Footer */
         footer {
-            background: var(--accent);
+            background: #1A1A2E;
             color: rgba(255, 255, 255, 0.6);
             padding: 3rem 2rem;
             text-align: center;
@@ -652,22 +637,6 @@ html_code = '''<!DOCTYPE html>
         html {
             scroll-behavior: smooth;
         }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeInUp 0.8s ease forwards;
-        }
     </style>
 </head>
 <body>
@@ -675,14 +644,14 @@ html_code = '''<!DOCTYPE html>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">💰 Financial Tracker Pro</a>
+            <a href="#" class="logo">Financial Tracker Pro</a>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
                 <li><a href="#showcase">Preview</a></li>
                 <li><a href="#testimonials">Reviews</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
-            <a href="https://mariemlbl.gumroad.com/l/financial-tracker-pro" class="nav-cta">Get It Now — €30</a>
+            <a href="https://mariemlbl.gumroad.com/l/financial-tracker-pro" class="nav-cta">Get It Now - 30 EUR</a>
         </div>
     </nav>
 
@@ -694,15 +663,12 @@ html_code = '''<!DOCTYPE html>
             
             <div class="hero-badges">
                 <div class="badge">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     One-time purchase
                 </div>
                 <div class="badge">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     Excel + Google Sheets
                 </div>
                 <div class="badge">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     Instant download
                 </div>
             </div>
@@ -710,20 +676,19 @@ html_code = '''<!DOCTYPE html>
             <div class="hero-cta">
                 <a href="https://mariemlbl.gumroad.com/l/financial-tracker-pro" class="btn-primary">
                     Get Financial Tracker Pro
-                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
                 <div class="price-tag">
-                    €30 <span>€49</span>
+                    30 EUR <span>49 EUR</span>
                 </div>
             </div>
         </div>
         <div class="hero-image">
             <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=600&fit=crop" alt="Financial Tracker Pro Dashboard Preview">
             <div class="floating-card savings">
-                💰 €2,450 saved this month
+                2,450 EUR saved this month
             </div>
             <div class="floating-card users">
-                ⭐ 500+ happy users
+                500+ happy users
             </div>
         </div>
     </section>
@@ -733,21 +698,21 @@ html_code = '''<!DOCTYPE html>
         <div class="section-container">
             <div class="section-header">
                 <h2>Sound Familiar?</h2>
-                <p>You\'re not alone. Most people struggle with money management because the tools are either too complex or too expensive.</p>
+                <p>You are not alone. Most people struggle with money management because the tools are either too complex or too expensive.</p>
             </div>
             <div class="problems-grid">
                 <div class="problem-card">
-                    <div class="problem-icon">😤</div>
+                    <div class="problem-icon">&#128545;</div>
                     <h3>Apps That Drain Your Wallet</h3>
-                    <p>€10/month subscription fees add up to €120/year. For a spreadsheet?</p>
+                    <p>10 EUR per month subscription fees add up to 120 EUR per year. For a spreadsheet?</p>
                 </div>
                 <div class="problem-card">
-                    <div class="problem-icon">😵</div>
+                    <div class="problem-icon">&#128565;</div>
                     <h3>Spreadsheets Too Complex</h3>
                     <p>Most Excel templates are overwhelming, with broken formulas and confusing layouts.</p>
                 </div>
                 <div class="problem-card">
-                    <div class="problem-icon">😔</div>
+                    <div class="problem-icon">&#128532;</div>
                     <h3>No Clear Picture</h3>
                     <p>You track expenses but never see the big picture. Where does your money actually go?</p>
                 </div>
@@ -768,7 +733,7 @@ html_code = '''<!DOCTYPE html>
                     <h3>Budget Sheet</h3>
                     <p>Plan and organize your income and expenses to stay aligned with your financial goals. Set monthly targets and watch your progress.</p>
                     <ul class="feature-list">
-                        <li>Income & expense categories</li>
+                        <li>Income and expense categories</li>
                         <li>Monthly budget targets</li>
                         <li>Variance tracking</li>
                         <li>Annual overview</li>
@@ -781,8 +746,8 @@ html_code = '''<!DOCTYPE html>
                     <ul class="feature-list">
                         <li>Daily transaction logging</li>
                         <li>Smart auto-categorization</li>
-                        <li>Date & vendor tracking</li>
-                        <li>Search & filter</li>
+                        <li>Date and vendor tracking</li>
+                        <li>Search and filter</li>
                     </ul>
                 </div>
                 <div class="feature-card">
@@ -790,7 +755,7 @@ html_code = '''<!DOCTYPE html>
                     <h3>Dashboard (KPI)</h3>
                     <p>Visualize your financial performance through key indicators. See total income, total expenses, savings rate, and spending trends at a glance.</p>
                     <ul class="feature-list">
-                        <li>Real-time charts & graphs</li>
+                        <li>Real-time charts and graphs</li>
                         <li>Savings rate calculator</li>
                         <li>Spending trend analysis</li>
                         <li>Goal progress tracking</li>
@@ -836,8 +801,8 @@ html_code = '''<!DOCTYPE html>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
-                    <p class="testimonial-text">"I finally understand where my money goes every month. The dashboard made me realize I was spending €200 more on subscriptions than I thought!"</p>
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"I finally understand where my money goes every month. The dashboard made me realize I was spending 200 EUR more on subscriptions than I thought!"</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">SM</div>
                         <div class="author-info">
@@ -847,7 +812,7 @@ html_code = '''<!DOCTYPE html>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p class="testimonial-text">"I tried 4 different budgeting apps before this. Nothing compares to the simplicity and control of this Excel workbook. Worth every euro."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">JD</div>
@@ -858,7 +823,7 @@ html_code = '''<!DOCTYPE html>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <div class="stars">★★★★★</div>
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                     <p class="testimonial-text">"The automated calculations save me hours every month. I just enter transactions and the dashboard updates instantly. Game changer."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">AK</div>
@@ -895,12 +860,12 @@ html_code = '''<!DOCTYPE html>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        One-time payment only. Pay €30 once and get lifetime access to the workbook, including all future updates. No hidden fees, no monthly charges, no surprises.
+                        One-time payment only. Pay 30 EUR once and get lifetime access to the workbook, including all future updates. No hidden fees, no monthly charges, no surprises.
                     </div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">
-                        What\'s included in the download?
+                        What is included in the download?
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
@@ -922,7 +887,7 @@ html_code = '''<!DOCTYPE html>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Every purchase includes email support. If you get stuck or have questions about using the tracker, just reply to your purchase confirmation email and I\'ll help you within 24 hours.
+                        Every purchase includes email support. If you get stuck or have questions about using the tracker, just reply to your purchase confirmation email and I will help you within 24 hours.
                     </div>
                 </div>
             </div>
@@ -934,29 +899,30 @@ html_code = '''<!DOCTYPE html>
         <h2>Ready to Master Your Money?</h2>
         <p>Join 500+ people who transformed their financial habits with the 3-sheet system that just works.</p>
         <a href="https://mariemlbl.gumroad.com/l/financial-tracker-pro" class="btn-white">
-            Get Financial Tracker Pro — €30
-            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            Get Financial Tracker Pro - 30 EUR
         </a>
-        <p class="guarantee">🔒 Secure payment via Gumroad · Instant download · 30-day satisfaction guarantee</p>
+        <p class="guarantee">Secure payment via Gumroad - Instant download - 30-day satisfaction guarantee</p>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2026 Financial Tracker Pro by <a href="https://mariemlbl.gumroad.com">Mariem Lbl</a>. All rights reserved.</p>
-        <p style="margin-top: 0.5rem;">Made with ❤️ for people who want financial clarity.</p>
+        <p>2026 Financial Tracker Pro by <a href="https://mariemlbl.gumroad.com">Mariem Lbl</a>. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">Made with care for people who want financial clarity.</p>
     </footer>
 
     <script>
         // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-question').forEach(function(question) {
+            question.addEventListener('click', function() {
+                var item = this.parentElement;
+                var isActive = item.classList.contains('active');
                 
                 // Close all
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.faq-item').forEach(function(i) {
+                    i.classList.remove('active');
+                });
                 
-                // Open clicked if it wasn't active
+                // Open clicked if it was not active
                 if (!isActive) {
                     item.classList.add('active');
                 }
@@ -964,10 +930,10 @@ html_code = '''<!DOCTYPE html>
         });
 
         // Smooth scroll for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                var target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
@@ -976,28 +942,14 @@ html_code = '''<!DOCTYPE html>
                 }
             });
         });
-
-        // Add animation on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.feature-card, .problem-card, .testimonial-card').forEach(el => {
-            observer.observe(el);
-        });
     </script>
 
 </body>
 </html>'''
 
-# Save the file
+# Save the cleaned version
 with open('/mnt/agents/output/index.html', 'w', encoding='utf-8') as f:
     f.write(html_code)
 
-print("✅ Landing page saved successfully!")
-print(f"📄 File: /mnt/agents/output/index.html")
-print(f"📊 Size: {len(html_code)} characters")
+print("Fixed version saved!")
+print(f"Size: {len(html_code)} characters")
