@@ -1317,17 +1317,3 @@ final_html = '''<!DOCTYPE html>
 
 </body>
 </html>'''
-
-# Save the final version with correct Gumroad link
-with open('/mnt/agents/output/index.html', 'w', encoding='utf-8') as f:
-    f.write(final_html)
-
-# Verify the link is correct
-import re
-gumroad_links = re.findall(r'href="([^"]*gumroad[^"]*)"', final_html)
-print("Gumroad links found in the code:")
-for link in gumroad_links:
-    print(f"  {link}")
-
-print(f"\nFile saved successfully!")
-print(f"Size: {len(final_html)} characters")
